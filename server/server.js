@@ -29,6 +29,7 @@ app.use((req, res, next) => {
   if (req.url.endsWith('.js')) {
     // Artificially delay serving JS
     // to demonstrate streaming HTML.
+    console.log('bundle', req.url);
     setTimeout(next, JS_BUNDLE_DELAY);
   } else {
     next();

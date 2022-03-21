@@ -6,10 +6,10 @@
  *
  */
 
-export default function NavBar() {
-  return (
-    <nav>
-      <a href="/">Home</a>
-    </nav>
-  );
-}
+const NavBar = () => (
+  <nav>
+    <a href="/">Home</a>
+  </nav>
+);
+
+export default NavBar;

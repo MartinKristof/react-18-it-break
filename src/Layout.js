@@ -3,9 +3,8 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- *
  */
 
-export default function Layout({children}) {
-  return <main>{children}</main>;
-}
+const Layout = ({ children }) => <main>{children}</main>;
+
+export default Layout;

@@ -6,17 +6,20 @@
  *
  */
 
-import {useData} from './data';
+import { useData } from './data';
 
-export default function Comments() {
-  const comments = useData();
-  return (
-    <>
-      {comments.map((comment, i) => (
-        <p className="comment" key={i}>
-          {comment}
-        </p>
-      ))}
-    </>
-  );
-}
+const Comments = () => {
+    const comments = useData();
+
+    return (
+        <>
+            {comments.map((comment, i) => (
+                <p className="comment" key={i}>
+                    {comment}
+                </p>
+            ))}
+        </>
+    );
+};
+
+export default Comments;

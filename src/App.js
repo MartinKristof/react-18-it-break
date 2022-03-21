@@ -6,8 +6,8 @@
  *
  */
 
-import {Suspense, lazy} from 'react';
-import {ErrorBoundary} from 'react-error-boundary';
+import { Suspense, lazy } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import Html from './Html';
 import Spinner from './Spinner';
 import Layout from './Layout';
@@ -17,48 +17,49 @@ const Comments = lazy(() => import('./Comments' /* webpackPrefetch: true */));
 const Sidebar = lazy(() => import('./Sidebar' /* webpackPrefetch: true */));
 const Post = lazy(() => import('./Post' /* webpackPrefetch: true */));
 
-export default function App({assets}) {
-  return (
+const App = ({ assets }) => (
     <Html assets={assets} title="Hello">
-      <Suspense fallback={<Spinner />}>
-        <ErrorBoundary FallbackComponent={Error}>
-          <Content />
-        </ErrorBoundary>
-      </Suspense>
+        <Suspense fallback={<Spinner />}>
+            <ErrorBoundary FallbackComponent={Error}>
+                <Content />
+            </ErrorBoundary>
+        </Suspense>
     </Html>
-  );
-}
+);
 
-function Content() {
-  return (
-    <Layout>
-      <NavBar />
-      <aside className="sidebar">
-        <Suspense fallback={<Spinner />}>
-          <Sidebar />
-        </Suspense>
-      </aside>
-      <article className="post">
-        <Suspense fallback={<Spinner />}>
-          <Post />
-        </Suspense>
-        <section className="comments">
-          <h2>Comments</h2>
-          <Suspense fallback={<Spinner />}>
-            <Comments />
-          </Suspense>
-        </section>
-        <h2>Thanks for reading!</h2>
-      </article>
-    </Layout>
-  );
-}
+const Content = () => {
+    // throw new Error('Any error!');
 
-function Error({error}) {
-  return (
+    return (
+        <Layout>
+            <NavBar />
+            <aside className="sidebar">
+                <Suspense fallback={<Spinner />}>
+                    <Sidebar />
+                </Suspense>
+            </aside>
+            <section>
+                <article className="post">
+                    <Suspense fallback={<Spinner />}>
+                        <Post />
+                    </Suspense>
+                    <section className="comments">
+                        <h2>Comments</h2>
+                        <Suspense fallback={<Spinner />}>
+                            <Comments />
+                        </Suspense>
+                    </section>
+                </article>
+            </section>
+        </Layout>
+    );
+};
+
+const Error = ({ error }) => (
     <div>
-      <h1>Application Error</h1>
-      <pre style={{whiteSpace: 'pre-wrap'}}>{error.stack}</pre>
+        <h1>Application Error</h1>
+        <pre style={{ whiteSpace: 'pre-wrap' }}>{error.stack}</pre>
     </div>
-  );
-}
+);
+
+export default App;
