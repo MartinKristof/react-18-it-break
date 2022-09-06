@@ -8,7 +8,7 @@
 
 import * as React from 'react';
 // import {renderToString} from 'react-dom/server';
-import { pipeToNodeWritable } from 'react-dom/server';
+import { renderToPipeableStream } from 'react-dom/server';
 import App from '../src/App';
 import { DataProvider } from '../src/data';
 import { API_DELAY, ABORT_DELAY } from './delays';
@@ -21,7 +21,7 @@ let assets = {
 
 module.exports = function render(url, res) {
     // This is how you would wire it up previously:
-    //
+
     // res.send(
     //   '<!DOCTYPE html>' +
     //   renderToString(
@@ -37,18 +37,32 @@ module.exports = function render(url, res) {
     });
     let didError = false;
     const data = createServerData();
-    const { startWriting, abort } = pipeToNodeWritable(
+    const stream = renderToPipeableStream(
         <DataProvider data={data}>
             <App assets={assets} />
         </DataProvider>,
         res,
         {
-            onReadyToStream() {
+            onShellReady() {
+                // The content above all Suspense boundaries is ready.
                 // If something errored before we started streaming, we set the error code appropriately.
                 res.statusCode = didError ? 500 : 200;
                 res.setHeader('Content-type', 'text/html');
-                res.write('<!DOCTYPE html>');
-                startWriting();
+                stream.pipe(res);
+            },
+            onShellError(error) {
+                console.log(error);
+                // Something errored before we could complete the shell so we emit an alternative shell.
+                res.statusCode = 500;
+                res.send('<!doctype html><p>Loading...</p><script src="clientrender.js"></script>');
+            },
+            onAllReady() {
+                // If you don't want streaming, use this instead of onShellReady.
+                // This will fire after the entire page content is ready.
+                // You can use this for crawlers or static generation.
+                // res.statusCode = didError ? 500 : 200;
+                // res.setHeader('Content-type', 'text/html');
+                // stream.pipe(res);
             },
             onError(x) {
                 didError = true;
@@ -56,9 +70,11 @@ module.exports = function render(url, res) {
             },
         },
     );
+    stream.pipe(res, { end: false });
+    res.flush();
     // Abandon and switch to client rendering if enough time passes.
     // Try lowering this to see the client recover.
-    setTimeout(abort, ABORT_DELAY);
+    setTimeout(() => stream.abort(), ABORT_DELAY);
 };
 
 // Simulate a delay caused by data fetching.

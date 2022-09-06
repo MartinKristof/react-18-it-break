@@ -6,7 +6,7 @@
  *
  */
 
-// 'use strict';
+'use strict';
 
 const path = require('path');
 const rimraf = require('rimraf');
