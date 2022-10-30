@@ -7,7 +7,7 @@
  */
 
 import * as React from 'react';
-// import {renderToString} from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
 import { renderToPipeableStream } from 'react-dom/server';
 import App from '../src/App';
 import { DataProvider } from '../src/data';
@@ -22,16 +22,17 @@ let assets = {
 module.exports = function render(url, res) {
     // This is how you would wire it up previously:
 
+    // const data = createServerData();
     // res.send(
-    //   '<!DOCTYPE html>' +
-    //   renderToString(
-    //     <DataProvider data={data}>
-    //       <App assets={assets} />
-    //     </DataProvider>,
-    //   )
+    //     '<!DOCTYPE html>' +
+    //         renderToString(
+    //             <DataProvider data={data}>
+    //                 <App assets={assets} />
+    //             </DataProvider>,
+    //         ),
     // );
 
-    // The new wiring is a bit more involved.
+    // // The new wiring is a bit more involved.
     res.socket.on('error', error => {
         console.error('Fatal', error);
     });
