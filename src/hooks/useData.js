@@ -7,8 +7,7 @@ import { DataContext } from '../contexts/DataContext';
 // We haven't integrated this part yet, so we'll just use fake data.
 const fakeData = ["Wait, it doesn't wait for React to load?", 'How does this even work?', 'I like marshmallows'];
 
-// eslint-disable-next-line import/prefer-default-export
-export const useData = () => {
+const useData = () => {
   const ctx = useContext(DataContext);
 
   if (ctx !== null) {
@@ -19,3 +18,5 @@ export const useData = () => {
 
   return fakeData;
 };
+
+export default useData;

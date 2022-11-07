@@ -3,4 +3,4 @@
 ### Setup
 
 * Install deps by `npm ci` command
-* Run `npm run start` to develop
+* Run `npm run dev` to develop

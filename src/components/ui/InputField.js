@@ -1,10 +1,19 @@
 import React from 'react';
 import { FormGroup, Input, Label } from 'reactstrap';
 
-const InputField = ({ inputRef, id, label, required, placeholder, type = 'email' }) => (
+const InputField = ({ inputRef, id, name, label, required, placeholder, value, onChange, type = 'email' }) => (
   <FormGroup>
     <Label for={id}>{label}</Label>
-    <Input innerRef={inputRef} id={id} name={id} placeholder={placeholder} type={type} required={required} />
+    <Input
+      innerRef={inputRef}
+      id={id}
+      name={name}
+      placeholder={placeholder}
+      type={type}
+      required={required}
+      value={value}
+      onChange={onChange}
+    />
   </FormGroup>
 );
 

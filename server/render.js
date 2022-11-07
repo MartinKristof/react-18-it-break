@@ -14,7 +14,7 @@ import fs from 'fs';
 import path from 'path';
 
 import App from '../src/App';
-import { DataProvider } from '../src/contexts/DataContext';
+import DataProvider from '../src/contexts/DataContext';
 
 import { ABORT_DELAY, API_DELAY } from './delays';
 

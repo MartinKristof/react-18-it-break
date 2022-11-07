@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import { Col, Row } from 'reactstrap';
 
 import Form from '../components/posts/Form';
 import PostList from '../components/posts/PostList';
+import Suggester from '../components/posts/Suggester';
 
 const Posts = () => {
   const [postItems, setPostItems] = useState([]);
+  const id = useId();
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -23,9 +25,13 @@ const Posts = () => {
 
   return (
     <>
+      <h1>Posts</h1>
       <Row>
         <Col>
-          <Form onSubmit={handleSubmit} />
+          <Suggester list={postItems} id={id} />
+        </Col>
+        <Col>
+          <Form onSubmit={handleSubmit} id={id} />
         </Col>
       </Row>
       <Row className="my-3">
