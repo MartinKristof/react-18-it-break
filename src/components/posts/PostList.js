@@ -1,5 +1,6 @@
 import React from 'react';
 import { List } from 'reactstrap';
+
 import Post from './Post';
 
 const PostList = ({ items }) => (

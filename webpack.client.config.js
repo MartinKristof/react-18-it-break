@@ -1,7 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 const { merge } = require('webpack-merge');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
-const sharedConfig = require('./webpack.shared.config.js');
+const sharedConfig = require('./webpack.shared.config');
 
 const OUTPUT_DIRECTORY = path.join(__dirname, './build/client');
 const STATIC_PORT = 4000;

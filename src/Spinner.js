@@ -6,9 +6,12 @@
  *
  */
 
+import React from 'react';
+
 const Spinner = ({ active = true }) => (
   <div
     className={['spinner', active && 'spinner--active'].join(' ')}
+    aria-label="progress"
     role="progressbar"
     aria-busy={active ? 'true' : 'false'}
   />

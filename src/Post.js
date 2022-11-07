@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
+import React from 'react';
 
 const Post = () => (
   <>
@@ -13,7 +14,7 @@ const Post = () => (
       This demo is <b>artificially slowed down</b>. Open <code>server/delays.js</code> to adjust how much different
       things are slowed down.
     </p>
-    <p>Notice how HTML for comments "streams in" before the JS (or React) has loaded on the page.</p>
+    <p>Notice how HTML for comments streams in before the JS (or React) has loaded on the page.</p>
     <p>
       Also notice that the JS for comments and sidebar has been code-split, but HTML for it is still included in the
       server output.

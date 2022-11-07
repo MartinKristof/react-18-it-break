@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Row, Col } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
+
 import Form from '../components/posts/Form';
 import PostList from '../components/posts/PostList';
 

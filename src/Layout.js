@@ -1,6 +1,7 @@
-import { Container } from 'reactstrap';
+import React, { lazy, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
+import { Container } from 'reactstrap';
+
 import NavBar from './NavBar';
 import Spinner from './Spinner';
 

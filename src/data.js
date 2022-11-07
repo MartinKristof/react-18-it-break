@@ -6,7 +6,7 @@
  *
  */
 
-import { createContext, useContext } from 'react';
+import React, { createContext, useContext } from 'react';
 
 // Note: this file does not demonstrate a real data fetching strategy.
 // We only use this to simulate data fetching happening on the server
@@ -31,5 +31,6 @@ export const useData = () => {
     // It is here to simulate a suspending data fetch.
     ctx.read();
   }
+
   return fakeData;
 };

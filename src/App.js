@@ -6,17 +6,17 @@
  *
  */
 
-import { lazy, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import Html from './Html';
-import Spinner from './Spinner';
-import Layout from './Layout';
 import { Route, Routes } from 'react-router-dom';
-import Error from './Error';
-import Content from './Content';
-import NotFound from './NotFound';
+
 import Posts from './pages/Posts';
-// const Posts = lazy(() => import('./pages/Posts' /* webpackPrefetch: true */));
+import Content from './Content';
+import Error from './Error';
+import Html from './Html';
+import Layout from './Layout';
+import NotFound from './NotFound';
+import Spinner from './Spinner';
 
 const App = ({ assets }) => (
   <Html assets={assets} title="Hello">

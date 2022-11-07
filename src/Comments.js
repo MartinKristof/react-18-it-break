@@ -6,6 +6,8 @@
  *
  */
 
+import React from 'react';
+
 import { useData } from './data';
 
 const Comments = () => {

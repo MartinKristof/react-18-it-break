@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Error = ({ error }) => (
   <div>
     <h1>Application Error</h1>

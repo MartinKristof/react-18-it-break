@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
+import React from 'react';
 
 const Html = ({ assets, children, title }) => (
   <html lang="en">
@@ -16,19 +17,21 @@ const Html = ({ assets, children, title }) => (
         rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
         crossOrigin="anonymous"
-      ></link>
+      />
       <link rel="shortcut icon" href="favicon.ico" />
       <link rel="stylesheet" href={assets.clientCss} />
       <title>{title}</title>
     </head>
     <body>
       <noscript
+        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{
           __html: `<b>Enable JavaScript to run this app.</b>`,
         }}
       />
       {children}
       <script
+        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{
           __html: `assetManifest = ${JSON.stringify(assets)};`,
         }}

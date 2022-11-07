@@ -1,7 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 const { merge } = require('webpack-merge');
 const NodemonPlugin = require('nodemon-webpack-plugin');
-const sharedConfig = require('./webpack.shared.config.js');
+const sharedConfig = require('./webpack.shared.config');
 
 const OUTPUT_DIRECTORY = path.join(__dirname, './build');
 const OUTPUT_FILE_NAME = 'bundle.js';

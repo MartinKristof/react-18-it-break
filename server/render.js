@@ -6,15 +6,18 @@
  *
  */
 
-import * as React from 'react';
+import React from 'react';
 // import { renderToString } from 'react-dom/server';
 import { renderToPipeableStream } from 'react-dom/server';
+import { StaticRouter } from 'react-router-dom/server';
+
 import fs from 'fs';
 import path from 'path';
-import { StaticRouter } from 'react-router-dom/server';
+
 import App from '../src/App';
 import { DataProvider } from '../src/data';
-import { API_DELAY, ABORT_DELAY } from './delays';
+
+import { ABORT_DELAY, API_DELAY } from './delays';
 
 const ASSETS_MANIFEST_FILE_PATH = 'client/assets-manifest.json';
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
@@ -41,6 +44,7 @@ const getAssets = () => {
       clientCss: `${getAssetsURL()}/main.css`,
     };
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Unable to load asset manifest file', error);
 
     return { clientJs: '', clientCss: '' };
@@ -48,54 +52,6 @@ const getAssets = () => {
 };
 
 const assets = getAssets();
-const render = (url, res) => {
-  // This is how you would wire it up previously:
-
-  // const data = createServerData();
-  // res.send(
-  //     '<!DOCTYPE html>' +
-  //         renderToString(
-  //             <DataProvider data={data}>
-  //                 <App assets={assets} />
-  //             </DataProvider>,
-  //         ),
-  // );
-
-  // // The new wiring is a bit more involved.
-  res.socket.on('error', error => {
-    console.error('Fatal', error);
-  });
-
-  let didError = false;
-  const data = createServerData();
-  const stream = renderToPipeableStream(
-    <StaticRouter location={url}>
-      <DataProvider data={data}>
-        <App assets={assets} />
-      </DataProvider>
-    </StaticRouter>,
-    res,
-    {
-      bootstrapScripts: [assets.clientJs],
-      onShellReady() {
-        // The content above all Suspense boundaries is ready.
-        // If something errored before we started streaming, we set the error code appropriately.
-        res.statusCode = didError ? 500 : 200;
-        res.setHeader('Content-type', 'text/html');
-        stream.pipe(res);
-      },
-      onError(x) {
-        didError = true;
-        console.error(x);
-      },
-    },
-  );
-  stream.pipe(res, { end: false });
-  res.flush();
-  setTimeout(() => stream.abort(), ABORT_DELAY);
-  // Abandon and switch to client rendering if enough time passes.
-  // Try lowering this to see the client recover.
-};
 
 // Simulate a delay caused by data fetching.
 // We fake this because the streaming HTML renderer
@@ -103,6 +59,7 @@ const render = (url, res) => {
 const createServerData = () => {
   let done = false;
   let promise = null;
+
   return {
     read() {
       if (done) {
@@ -121,6 +78,58 @@ const createServerData = () => {
       throw promise;
     },
   };
+};
+
+const render = (url, res) => {
+  // This is how you would wire it up previously:
+
+  // const data = createServerData();
+  // res.send(
+  //     '<!DOCTYPE html>' +
+  //         renderToString(
+  //             <DataProvider data={data}>
+  //                 <App assets={assets} />
+  //             </DataProvider>,
+  //         ),
+  // );
+
+  // // The new wiring is a bit more involved.
+  res.socket.on('error', error => {
+    // eslint-disable-next-line no-console
+    console.error('Fatal', error);
+  });
+
+  let didError = false;
+  const data = createServerData();
+  const stream = renderToPipeableStream(
+    <StaticRouter location={url}>
+      <DataProvider data={data}>
+        <App assets={assets} />
+      </DataProvider>
+    </StaticRouter>,
+    res,
+    {
+      bootstrapScripts: [assets.clientJs],
+      onShellReady() {
+        // The content above all Suspense boundaries is ready.
+        // If something errored before we started streaming, we set the error code appropriately.
+        // eslint-disable-next-line no-param-reassign
+        res.statusCode = didError ? 500 : 200;
+        res.setHeader('Content-type', 'text/html');
+        stream.pipe(res);
+      },
+      onError(x) {
+        didError = true;
+        // eslint-disable-next-line no-console
+        console.error(x);
+      },
+    },
+  );
+  stream.pipe(res, { end: false });
+  res.flush();
+  setTimeout(() => stream.abort(), ABORT_DELAY);
+  // Abandon and switch to client rendering if enough time passes.
+  // Try lowering this to see the client recover.
 };
 
 export default render;

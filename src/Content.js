@@ -1,27 +1,26 @@
-import { Suspense, lazy } from 'react';
+import React, { lazy, Suspense } from 'react';
+
 import Spinner from './Spinner';
 
 const Comments = lazy(() => import('./Comments' /* webpackPrefetch: true */));
 const Post = lazy(() => import('./Post' /* webpackPrefetch: true */));
 
-const Content = () => {
+const Content = () => (
   // throw new Error('Any error!');
 
-  return (
-    <div>
-      <article className="post">
+  <div>
+    <article className="post">
+      <Suspense fallback={<Spinner />}>
+        <Post />
+      </Suspense>
+      <section className="comments">
+        <h2>Comments</h2>
         <Suspense fallback={<Spinner />}>
-          <Post />
+          <Comments />
         </Suspense>
-        <section className="comments">
-          <h2>Comments</h2>
-          <Suspense fallback={<Spinner />}>
-            <Comments />
-          </Suspense>
-        </section>
-      </article>
-    </div>
-  );
-};
+      </section>
+    </article>
+  </div>
+);
 
 export default Content;
