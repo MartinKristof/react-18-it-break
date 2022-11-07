@@ -16,7 +16,7 @@ import { createContext, useContext } from 'react';
 const DataContext = createContext(null);
 
 export const DataProvider = ({ children, data }) => (
-    <DataContext.Provider value={data}>{children}</DataContext.Provider>
+  <DataContext.Provider value={data}>{children}</DataContext.Provider>
 );
 
 // In a real implementation the data would be streamed with the HTML.
@@ -24,12 +24,12 @@ export const DataProvider = ({ children, data }) => (
 const fakeData = ["Wait, it doesn't wait for React to load?", 'How does this even work?', 'I like marshmallows'];
 
 export const useData = () => {
-    const ctx = useContext(DataContext);
+  const ctx = useContext(DataContext);
 
-    if (ctx !== null) {
-        // This context is only provided on the server.
-        // It is here to simulate a suspending data fetch.
-        ctx.read();
-    }
-    return fakeData;
+  if (ctx !== null) {
+    // This context is only provided on the server.
+    // It is here to simulate a suspending data fetch.
+    ctx.read();
+  }
+  return fakeData;
 };

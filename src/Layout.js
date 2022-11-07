@@ -1,3 +1,10 @@
+import { Container } from 'reactstrap';
+import { Outlet } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import NavBar from './NavBar';
+import Spinner from './Spinner';
+
+const Sidebar = lazy(() => import('./Sidebar' /* webpackPrefetch: true */));
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -5,6 +12,20 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const Layout = ({ children }) => <main>{children}</main>;
+const Layout = () => (
+  <>
+    <NavBar />
+    <aside className="sidebar">
+      <Suspense fallback={<Spinner />}>
+        <Sidebar />
+      </Suspense>
+    </aside>
+    <section>
+      <Container className="my-5">
+        <Outlet />
+      </Container>
+    </section>
+  </>
+);
 
 export default Layout;

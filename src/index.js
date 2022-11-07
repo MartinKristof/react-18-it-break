@@ -7,6 +7,12 @@
  */
 
 import { hydrateRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 
-hydrateRoot(document, <App assets={window.assetManifest} />);
+hydrateRoot(
+  document,
+  <BrowserRouter>
+    <App assets={window.assetManifest} />
+  </BrowserRouter>,
+);

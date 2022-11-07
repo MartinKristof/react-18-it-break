@@ -1,6 +1,7 @@
 # Ignore artifacts:
 build
-/node_modules
-./package-lock.json
+public
+node_modules
+package-lock.json
 *.md
 .vscode

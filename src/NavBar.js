@@ -6,10 +6,12 @@
  *
  */
 
+import { Navbar, NavbarBrand } from 'reactstrap';
+
 const NavBar = () => (
-    <nav>
-        <a href="/">Home</a>
-    </nav>
+  <Navbar color="dark" dark>
+    <NavbarBrand href="/">React IT break</NavbarBrand>
+  </Navbar>
 );
 
 export default NavBar;
