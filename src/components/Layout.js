@@ -2,8 +2,8 @@ import React, { lazy, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
+import Spinner from './ui/Spinner';
 import NavBar from './NavBar';
-import Spinner from './Spinner';
 
 const Sidebar = lazy(() => import('./Sidebar' /* webpackPrefetch: true */));
 /**

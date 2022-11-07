@@ -10,13 +10,13 @@ import React, { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Route, Routes } from 'react-router-dom';
 
+import Error from './components/Error';
+import Html from './components/Html';
+import Layout from './components/Layout';
+import NotFound from './components/NotFound';
+import Spinner from './components/ui/Spinner';
+import Hello from './pages/Hello';
 import Posts from './pages/Posts';
-import Content from './Content';
-import Error from './Error';
-import Html from './Html';
-import Layout from './Layout';
-import NotFound from './NotFound';
-import Spinner from './Spinner';
 
 const App = ({ assets }) => (
   <Html assets={assets} title="Hello">
@@ -24,7 +24,7 @@ const App = ({ assets }) => (
       <ErrorBoundary FallbackComponent={Error}>
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/" element={<Content />} />
+            <Route path="/" element={<Hello />} />
             <Route path="posts" element={<Posts />} />
             <Route path="*" element={<NotFound />} />
           </Route>

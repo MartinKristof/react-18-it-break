@@ -6,11 +6,19 @@
  *
  */
 import React from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
+import { Nav, Navbar, NavbarBrand, NavItem, NavLink } from 'reactstrap';
 
 const NavBar = () => (
   <Navbar color="dark" dark>
     <NavbarBrand href="/">React IT break</NavbarBrand>
+    <Nav className="me-auto" navbar>
+      <NavItem>
+        <NavLink href="/">Hello</NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink href="/posts/">Posts</NavLink>
+      </NavItem>
+    </Nav>
   </Navbar>
 );
 

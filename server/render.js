@@ -5,7 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-
 import React from 'react';
 // import { renderToString } from 'react-dom/server';
 import { renderToPipeableStream } from 'react-dom/server';
@@ -15,7 +14,7 @@ import fs from 'fs';
 import path from 'path';
 
 import App from '../src/App';
-import { DataProvider } from '../src/data';
+import { DataProvider } from '../src/contexts/DataContext';
 
 import { ABORT_DELAY, API_DELAY } from './delays';
 

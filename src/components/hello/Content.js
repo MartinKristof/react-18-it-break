@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 
-import Spinner from './Spinner';
+import Spinner from '../ui/Spinner';
 
 const Comments = lazy(() => import('./Comments' /* webpackPrefetch: true */));
 const Post = lazy(() => import('./Post' /* webpackPrefetch: true */));

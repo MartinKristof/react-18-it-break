@@ -8,7 +8,7 @@
 
 import React from 'react';
 
-import { useData } from './data';
+import { useData } from '../../hooks/useData';
 
 const Comments = () => {
   const comments = useData();
